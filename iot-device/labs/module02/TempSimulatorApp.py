@@ -5,7 +5,7 @@ Created on Sep 22, 2018
 '''
 
 from labs.module02.TempSensorEmulator import TempSensorEmulator
-from asyncio.tasks import sleep
+from time import sleep
 
 TS = TempSensorEmulator(5)
 TS.daemon = True

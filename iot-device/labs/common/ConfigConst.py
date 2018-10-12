@@ -7,7 +7,7 @@ Created on Oct 6, 2018
 class ConfigConst:
     
     SECTION_SEPARATOR = '.'
-    DEFAULT_CONFIG_FILE_NAME = 'D:/eclipse-python/iot-device/data/ConnectedDevicesConfig.props'
+    DEFAULT_CONFIG_FILE_NAME = 'D:/git/repository/iot-device/data/ConnectedDevicesConfig.props'
     CLOUD = 'cloud'
     MQTT = 'mqtt'
     COAP = 'coap'

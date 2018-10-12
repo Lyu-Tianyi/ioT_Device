@@ -10,36 +10,36 @@ from time import sleep
 from labs.common.SensorData import SensorData
 from labs.module02.SmtpClientConnector import SmtpClientConnector
 
+
 class TempSensorEmulator(Thread):
-    
-    curTemp=0
-    highVal=0
-    lowVal=0
-    enableTempEmulator=False
-    updateTime=0
+
+    curTemp = 0
+    highVal = 0
+    lowVal = 0
+    enableTempEmulator = False
+    updateTime = 0
     rateInSec = 0
-    sensorData=0
-    connector=0
-    alertDiff=0
-    
+    sensorData = 0
+    connector = 0
+    alertDiff = 0
+
     def __init__(self, rateInSec):
         Thread.__init__(self)
-        self.highVal=30
-        self.lowVal=0
-        self.updateTime=2
+        self.highVal = 30
+        self.lowVal = 0
+        self.updateTime = 2
         self.rateInSec = rateInSec
-        self.sensorData=SensorData()
-        self.connector=SmtpClientConnector()
-        self.alertDiff=10
-    
-    
+        self.sensorData = SensorData()
+        self.connector = SmtpClientConnector()
+        self.alertDiff = 10
+
     def getCurrValue(self):
-        
+
         return self.currValue
 
-    def setEnableTempEmulator(self,flag):
-        self.enableTempEmulator=flag
-    
+    def setEnableTempEmulator(self, flag):
+        self.enableTempEmulator = flag
+
     def run(self):
         while True:
             if self.enableTempEmulator:
@@ -50,9 +50,9 @@ class TempSensorEmulator(Thread):
                 print('New sensor readings: \n')
                 print(' ' + str(self.sensorData))
 
-            if (abs(self.curTemp - self.sensorData.getAvgValue()) >= self.alertDiff):
-                print('\n Current temp exceeds average by > ' + str(self.alertDiff) + '. Triggering alert...')
-                self.connector.publishMessage('Exceptional sensor data [test]', self.sensorData)
-                sleep(self.rateInSec)
-                
+                if (abs(self.curTemp - self.sensorData.getAvgValue()) >= self.alertDiff):
+                    print('\n Current temp exceeds average by > ' + str(self.alertDiff) + '. Triggering alert...')
+                    self.connector.publishMessage('Exceptional sensor data [test]', self.sensorData)
+                    sleep(self.rateInSec)
+
             sleep(self.updateTime)

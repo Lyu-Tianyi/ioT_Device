@@ -65,4 +65,5 @@ enableLogging = True
 
 [device]
 enableEmulator = True
-pollCycleSecs = 60
+pollCycleSecs = 60
+nominalTemp = 20

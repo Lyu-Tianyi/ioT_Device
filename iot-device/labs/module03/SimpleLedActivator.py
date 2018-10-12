@@ -7,7 +7,6 @@ from time import sleep
 import threading
 # This next import is why we need the RPi.GPIO proxy class
 import RPi.GPIO as GPIO
-
 class SimpleLedActivator(threading.Thread):
     enableLed = False
     rateInSec = 1
@@ -29,3 +28,4 @@ class SimpleLedActivator(threading.Thread):
     def setEnableLedFlag(self, enable):
         GPIO(17, GPIO.LOW)
         self.enableLed = enable
+

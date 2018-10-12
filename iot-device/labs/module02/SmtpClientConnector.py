@@ -12,7 +12,7 @@ from email.mime.multipart import MIMEMultipart
 
 class SmtpClientConnector():
     def __init__(self):
-        self.config = ConfigUtil('D:/eclipse-python/iot-device/data/ConnectedDevicesConfig.props')
+        self.config = ConfigUtil('D:/git/repository/iot-device/data/ConnectedDevicesConfig.props')
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config))
     def publishMessage(self, topic, data):
