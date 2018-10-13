@@ -5,14 +5,18 @@ Created on Oct 12, 2018
 '''
 
 from labs.module03.TempActuatorEmulator import TempActuatorEmulator
+from labs.module03.TempSensorAdaptor import TempSensorAdaptor
 from asyncio.tasks import sleep
 
-TS = TempSensorEmulator(5)
-TS.daemon = True
+TSA = TempSensorAdaptor(5)
+TSA.daemon = True
+
+TAE = TempActuatorEmulator()
+TAE.daemon = True
 
 print("Daemon Thread Starting...")
-TS.setEnableTempEmulator(True)
-TS.start()
+TSA.start()
+TAE.start()
 
 while(True):
     sleep(5)

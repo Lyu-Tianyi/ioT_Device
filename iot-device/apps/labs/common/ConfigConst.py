@@ -4,10 +4,10 @@ Created on Oct 6, 2018
 @author: l0t0y
 '''
 
-class ConfigConst:
+class ConfigConst():
     
     SECTION_SEPARATOR = '.'
-    DEFAULT_CONFIG_FILE_NAME = 'D:/git/repository/iot-device/data/ConnectedDevicesConfig.props'
+    DEFAULT_CONFIG_FILE_NAME = 'D:/git/repository/iot-device/apps/data/ConnectedDevicesConfig.props'
     CLOUD = 'cloud'
     MQTT = 'mqtt'
     COAP = 'coap'
@@ -42,3 +42,5 @@ class ConfigConst:
     ENABLE_EMULATOR_KEY = 'enableEmulator'
     ENABLE_LOGGING_KEY = 'enableLogging'
     POLL_CYCLES_KEY = 'pollCycleSecs'
+    
+    TEMP_KEY = 'nominalTemp'

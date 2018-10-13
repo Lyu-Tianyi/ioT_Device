@@ -8,6 +8,7 @@ class SenseHat():
     
     rotateDeg = 270
     clearFlag = False
+    
     def __init__(self):
         self.set_rotation(self.rotateDeg)
     def clear(self):

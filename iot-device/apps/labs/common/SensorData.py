@@ -5,8 +5,7 @@ Created on Sep 22, 2018
 '''
 import os
 from datetime import datetime
-from _overlapped import NULL
-from tensorflow.python.framework.test_ops import none
+
 class SensorData():
     timeStamp = None
     name = 'Not set'

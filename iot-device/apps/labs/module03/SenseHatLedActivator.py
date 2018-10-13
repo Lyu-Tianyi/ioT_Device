@@ -4,7 +4,7 @@ Created on Sep 22, 2018
 @author: l0t0y
 '''
 from time import sleep
-from sense_hat import SenseHat
+from SenseHat import SenseHat
 import threading
 
 class SenseHatLedActivator(threading.Thread):

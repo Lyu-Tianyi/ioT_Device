@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 import smtplib
 from email.mime.multipart import MIMEMultipart
 
-class SmtpClientConnector():
+class Connector():
     def __init__(self):
         self.config = ConfigUtil('D:/git/repository/iot-device/data/ConnectedDevicesConfig.props')
         self.config.loadConfig()

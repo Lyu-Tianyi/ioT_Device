@@ -26,9 +26,25 @@ class ActuatorData():
     statusCode = 0
     stateData = None
     val = 0.0
-    
+
     def __init__(self):
         self.updateTimeStamp()
+    
+    def addValue(self, newCommand, newStatus):
+        self.timeStamp = str(datetime.now())
+
+        self.command = newCommand
+        self.statusCode = newStatus
+        
+        if (self.command == 0):
+            self.stateData = "Stay Still"
+        if (self.command == 1):
+            self.stateData = "Lower than normal temp " + self.stateData + "degree.\n Increasing temperature..."
+        if (self.command == 2):
+            self.stateData = "Higher than normal temp " + self.stateData + "degree.\n Decreasing temperature..."
+        else:
+            print("Actuator Error")
+            
     def getCommand(self):
         return self.command
     def getName(self):
@@ -72,7 +88,7 @@ class ActuatorData():
         str(self.name + ':' + \
             os.linesep + '\tTime: ' + self.timeStamp + \
             os.linesep + '\tCommand: ' + str(self.command) + \
-            os.linesep + '\tStatus Code: ' + str(self.statusCode) + \
+            # os.linesep + '\tStatus Code: ' + str(self.statusCode) + \
             os.linesep + '\tError Code: ' + str(self.errCode) + \
             os.linesep + '\tState Data: ' + str(self.stateData) + \
             os.linesep + '\tValue: ' + str(self.val))
