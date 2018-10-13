@@ -19,22 +19,38 @@ class TempActuatorEmulator(Thread):
 
         self.actuatorData = ActuatorData()
         self.senseHatLed = SenseHatLedActivator()
+        
     
-    def processMessage(self):
+    def processMessage(self, actuatorData):
+        
+        if (self.actuatorData.getCommand() == 0):
+            self.message = 'Stay'
 
-        if (self.actuatorData.getCommand() == 1):
+        elif (self.actuatorData.getCommand() == 1):
             self.message = 'Increasing'
+            self.senseHatLed.setDisplayMessage(self.message)
             
-        if (self.actuatorData.getCommand() == 2):
+        elif (self.actuatorData.getCommand() == 2):
             self.message = 'Decreasing'
+            self.senseHatLed.setDisplayMessage(self.message)
             
         else:
             self.message = 'Error'
+            self.senseHatLed.setDisplayMessage(self.message)
+    
+    
+    def update(self,actuatorData): 
+        self.actuatorData.updateData(actuatorData)
         
-        self.senseHatLed.setDisplayMessage(self.message)
         
     def run(self):
-        while (self.actuatorData.getCommand() != 0):
-            print('\n Actuator start working ...')
-            self.processMessage()
+        while True:
+            while(self.actuatorData.getCommand() != 0):
             
+                self.processMessage(self.actuatorData)
+                
+                
+    
+        
+        
+        

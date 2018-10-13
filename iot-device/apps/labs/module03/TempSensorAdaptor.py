@@ -12,6 +12,8 @@ from labs.common.ConfigUtil import ConfigUtil
 from labs.common.ConfigConst import ConfigConst
 from labs.module03.Connector import Connector
 
+from labs.module03.TempActuatorEmulator import TempActuatorEmulator
+
 class TempSensorAdaptor(Thread):
 
     curTemp = 0
@@ -23,18 +25,19 @@ class TempSensorAdaptor(Thread):
     alertDiff = 0
     senseHatLed = 0
     actuatorData = 0
+    TAE = 0
 
-    def __init__(self, rateInSec):
+    def __init__(self):
         Thread.__init__(self)
         self.highVal = 30
         self.lowVal = 0
         self.updateTime = 2
-        self.rateInSec = rateInSec
         self.senseHat = SenseHat()
         self.sensorData = SensorData()
         self.actuatorData = ActuatorData()
         self.connector = Connector()
         self.alertDiff = 10
+        
         
         self.config = ConfigUtil('D:/git/repository/iot-device/apps/data/ConnectedDevicesConfig.props')
         self.config.loadConfig()
@@ -49,6 +52,8 @@ class TempSensorAdaptor(Thread):
 
     def run(self):
         while True:
+            TAE = TempActuatorEmulator()
+            TAE.start()
             self.curTemp = self.senseHat.get_temperature()
             self.sensorData.addValue(self.curTemp)
             print('\n--------------------')
@@ -60,19 +65,25 @@ class TempSensorAdaptor(Thread):
 
             if (abs(self.curTemp - float(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY))) > self.alertDiff):
                 print('\n Current temp exceeds average by > ' + str(self.alertDiff) + '. Triggering alert...')
-                self.connector.publishMessage('Exceptional sensor and actuator data [test]', self.sensorData + self.actuatorData)
+                try:
+                    self.connector.publishMessage('Exceptional sensor data [test]', self.sensorData)
+                except Exception as e:
+                    print("Failed to send email\n")
+                    
                 print('\n Actuator activating...')
                 if (self.curTemp > float(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY))):
-                    self.actuatorData.addValue(1, abs(self.curTemp - self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY)))
+                    self.actuatorData.addValue(1, abs(self.curTemp - float(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY))))
                 else:
-                    self.actuatorData.addValue(2, abs(self.curTemp - self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY)))
+                    self.actuatorData.addValue(2, abs(self.curTemp - float(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY))))
+            
+            
+                
                 # LED Display
                 #self.senseHatLed.displayMsg(abs(self.curTemp - self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY)))
-                sleep(self.rateInSec)
+               
                 
             else:
                 self.actuatorData.addValue(0, 0)
             
-            
-            
+        self.enableTempEmulator.updateData(self.actuatorData)    
         sleep(self.updateTime)

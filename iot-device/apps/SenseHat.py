@@ -20,7 +20,7 @@ class SenseHat():
         return self.get_temperature_from_humidity()
     def get_temperature_from_humidity(self):
     # NOTE: This is just a sample
-        return 21.4
+        return 40.4
     def get_temperature_from_pressure(self):
         return self.get_temperature_from_humidity()
     def get_pressure(self):

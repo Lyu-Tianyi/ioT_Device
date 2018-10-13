@@ -37,13 +37,14 @@ class ActuatorData():
         self.statusCode = newStatus
         
         if (self.command == 0):
-            self.stateData = "Stay Still"
-        if (self.command == 1):
-            self.stateData = "Lower than normal temp " + self.stateData + "degree.\n Increasing temperature..."
-        if (self.command == 2):
-            self.stateData = "Higher than normal temp " + self.stateData + "degree.\n Decreasing temperature..."
+            self.stateData = "Stay Still" 
+        elif (self.command == 1):
+            self.stateData = "Lower than normal temp " + str(self.statusCode) + " degree. Increasing temperature..."
+        elif (self.command == 2):
+            self.stateData = "Higher than normal temp " + str(self.statusCode) + " degree. Decreasing temperature..."
         else:
             print("Actuator Error")
+            print(self.command)
             
     def getCommand(self):
         return self.command
