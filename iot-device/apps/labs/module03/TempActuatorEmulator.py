@@ -21,7 +21,7 @@ class TempActuatorEmulator(Thread):
         self.senseHatLed = SenseHatLedActivator()
         
     
-    def processMessage(self, actuatorData):
+    def processMessage(self):
         
         if (self.actuatorData.getCommand() == 0):
             self.message = 'Stay'

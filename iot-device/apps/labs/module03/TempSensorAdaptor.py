@@ -7,7 +7,7 @@ from threading import Thread
 from time import sleep
 from labs.common.SensorData import SensorData
 from labs.common.ActuatorData import ActuatorData
-from SenseHat import SenseHat
+from sense_hat import SenseHat
 from labs.common.ConfigUtil import ConfigUtil
 from labs.common.ConfigConst import ConfigConst
 from labs.module03.Connector import Connector
@@ -68,7 +68,7 @@ class TempSensorAdaptor(Thread):
                 try:
                     self.connector.publishMessage('Exceptional sensor data [test]', self.sensorData)
                 except Exception as e:
-                    print("Failed to send email\n")
+                    print("Failed to send email\n" + str(e))
                     
                 print('\n Actuator activating...')
                 if (self.curTemp > float(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE,ConfigConst.TEMP_KEY))):
