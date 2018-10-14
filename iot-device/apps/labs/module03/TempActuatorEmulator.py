@@ -5,7 +5,6 @@ Created on Oct 12, 2018
 '''
 from threading import Thread
 from labs.common.ActuatorData import ActuatorData
-from time import sleep
 from labs.module03.SenseHatLedActivator import SenseHatLedActivator
 
 class TempActuatorEmulator(Thread):
